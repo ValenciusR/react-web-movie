@@ -20,6 +20,7 @@
 .Movie-container{
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
   width: 100%;
   gap: 20px;
@@ -38,4 +39,23 @@
   padding: 16px;
   font-weight: bold;
   width: 400px;
+}
+
+.Movie-title{
+  height: 60px;
+  margin-top: 24px;
+  font-weight: bold;
+}
+
+.Movie-date{
+  margin-top: 24px;
+  font-style: italic;
+}
+
+.Movie-rate{
+  color: gold;
+  margin-bottom: 24px;
+  font-weight: bold;
+  size: 28px;
+  text-decoration: underline;
 }

@@ -4,32 +4,47 @@ import { getMovieList, searchMovie } from "./api";
 
 function App() {
   const [popularMovies, setPopularMovies] = useState([]);
-  const [search, setSearch] = useState("");
   useEffect(() => {
     getMovieList().then((result) => {
       setPopularMovies(result);
     });
   }, []);
 
-  const PopularMovieList = 
+  const search = async (q) => {
+    if (q.length > 3) {
+      const query = await searchMovie(q);
+      console.log({ query: query });
+      setPopularMovies(query);
+    }
+  };
+
+  const PopularMovieList = () => {
+    return popularMovies.map((movie, i) => {
+      return (
+        <div className="Movie-wrapper" key={i}>
+          <div className="Movie-title">{movie.title}</div>
+          <img
+            className="Movie-image"
+            src={`${process.env.REACT_APP_BASEIMGURL}/${movie.poster_path}`}
+          ></img>
+          <div className="Movie-date">{movie.release_date}</div>
+          <div className="Movie-rate">{movie.vote_average}9</div>
+        </div>
+      );
+    });
+  };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>Movie Finder</h1>
         <input
-          value={search}
           className="Movie-search"
           placeholder="cari film"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={({ target }) => search(target.value)}
         ></input>
         <div className="Movie-container">
-          <div className="Movie-wrapper">
-            <div className="Movie-title">Contoh pertama</div>
-            <img className="Movie-image" src=""></img>
-            <div className="Movie-date">11-12-2022</div>
-            <div className="Movie-rate">8.9</div>
-          </div>
+          <PopularMovieList />
         </div>
       </header>
     </div>
